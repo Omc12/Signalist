@@ -2350,5 +2350,12 @@
     "sector": "Other",
     "market_cap": 0,
     "last_price": 0.0
+  },
+  {
+    "ticker": "TATAMOTORS",
+    "name": "TATAMOTORS",
+    "sector": "Other",
+    "market_cap": 0,
+    "last_price": 0.0
   }
 ]

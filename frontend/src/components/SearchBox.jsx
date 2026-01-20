@@ -39,9 +39,9 @@ const SearchBox = ({ onSelectStock, placeholder = "Search stocks..." }) => {
     const timer = setTimeout(async () => {
       setLoading(true);
       try {
-        // Use the dynamic search endpoint
+        // Use the dynamic search endpoint with lower limit for focused results
         const response = await fetch(
-          `http://localhost:8000/stocks?search=${encodeURIComponent(query)}&limit=20`
+          `http://localhost:8000/stocks?search=${encodeURIComponent(query)}&limit=10`
         );
         
         if (!response.ok) {
@@ -51,26 +51,8 @@ const SearchBox = ({ onSelectStock, placeholder = "Search stocks..." }) => {
         const data = await response.json();
         const stockResults = data.stocks || [];
         
-        // If no results from main search, try direct lookup
-        if (stockResults.length === 0 && query.length >= 2) {
-          try {
-            const lookupResponse = await fetch(
-              `http://localhost:8000/stocks?search=${encodeURIComponent(query)}&limit=10`
-            );
-            
-            if (lookupResponse.ok) {
-              const lookupData = await lookupResponse.json();
-              if (lookupData.stocks && lookupData.stocks.length > 0) {
-                stockResults.push(...lookupData.stocks);
-              }
-            }
-          } catch (lookupError) {
-            // Lookup failed, continue with main search results
-            console.log('Lookup failed, using main search results');
-          }
-        }
-        
-        setResults(stockResults.slice(0, 15)); // Increased to 15 results
+        // Show top 8 most relevant results only
+        setResults(stockResults.slice(0, 8));
         setShowDropdown(stockResults.length > 0);
         setSelectedIndex(-1);
       } catch (error) {
@@ -80,7 +62,7 @@ const SearchBox = ({ onSelectStock, placeholder = "Search stocks..." }) => {
       } finally {
         setLoading(false);
       }
-    }, 300); // Slightly increased delay for API calls
+    }, 250); // Reduced delay for faster response
 
     return () => clearTimeout(timer);
   }, [query]);

@@ -138,51 +138,62 @@ class StockService:
         return None
 
     def _search_local_stocks(self, query: str) -> List[Dict]:
-        """Search stocks in local database with enhanced ranking."""
+        """Search stocks in local database with progressive word-by-word matching."""
         stocks = self.load_stocks()
         query_lower = query.lower().strip()
+        query_words = query_lower.split()
         
-        # Filter matching stocks with scoring
+        # Filter matching stocks with progressive scoring
         matches = []
         for stock in stocks:
             ticker = stock.get("ticker", "").lower()
             name = stock.get("name", "").lower()
+            ticker_base = ticker.replace('.ns', '').replace('.bo', '')
             score = 0
             
+            # Progressive matching - stricter as query grows
             # Exact ticker match (highest priority)
-            if query_lower == ticker.replace('.ns', '').replace('.bo', ''):
+            if query_lower == ticker_base:
                 score = 100
-            # Ticker starts with query
-            elif ticker.startswith(query_lower) or ticker.replace('.ns', '').replace('.bo', '').startswith(query_lower):
-                score = 90
-            # Query in ticker
-            elif query_lower in ticker:
-                score = 80
-            # Name contains all words (for multi-word queries)
-            elif len(query_lower.split()) > 1:
-                query_words = query_lower.split()
+            # Ticker starts with query (very high priority for partial matches)
+            elif ticker_base.startswith(query_lower):
+                score = 95
+            # For multi-word queries, require ALL words present
+            elif len(query_words) > 1:
+                # All words must be in name (word-by-word strict matching)
                 if all(word in name for word in query_words):
-                    score = 70
-                elif any(word in name for word in query_words if len(word) > 2):
-                    score = 50
-            # Name starts with query
-            elif name.startswith(query_lower):
-                score = 60
-            # Query in name
-            elif query_lower in name:
-                score = 40
+                    # Calculate score based on how well words match
+                    if name.startswith(query_lower):
+                        score = 90
+                    elif all(name.startswith(word) or f" {word}" in name for word in query_words):
+                        score = 85
+                    else:
+                        score = 70
+            # Single word queries - check name and ticker
+            else:
+                if name.startswith(query_lower):
+                    score = 80
+                elif ticker.startswith(query_lower):
+                    score = 75
+                elif query_lower in ticker:
+                    score = 60
+                elif query_lower in name:
+                    # Only if word appears as a separate word or at start
+                    words_in_name = name.split()
+                    if query_lower in words_in_name or any(w.startswith(query_lower) for w in words_in_name):
+                        score = 50
             
             if score > 0:
                 stock_copy = stock.copy()
                 stock_copy['_score'] = score
                 matches.append(stock_copy)
         
-        # Sort by score (descending)
-        matches.sort(key=lambda x: x.get('_score', 0), reverse=True)
+        # Sort by score (descending), then by name
+        matches.sort(key=lambda x: (-x.get('_score', 0), x.get('name', '')))
         return matches
 
     def _rank_search_results(self, results: List[Dict], query: str) -> List[Dict]:
-        """Rank combined search results by relevance."""
+        """Rank combined search results with progressive word-by-word matching."""
         if not results:
             return []
         
@@ -193,32 +204,47 @@ class StockService:
         for result in results:
             ticker = result.get('ticker', '').lower()
             name = result.get('name', '').lower()
+            ticker_base = ticker.replace('.ns', '').replace('.bo', '')
             score = result.get('_score', 0)
             
-            # If not already scored, calculate score
+            # If not already scored, calculate progressive score
             if score == 0:
-                if query_lower == ticker.replace('.ns', '').replace('.bo', ''):
+                # Exact ticker match
+                if query_lower == ticker_base:
                     score = 100
-                elif ticker.startswith(query_lower):
-                    score = 90
-                elif query_lower in ticker:
-                    score = 80
-                elif len(query_words) > 1 and all(word in name for word in query_words):
-                    score = 70
-                elif name.startswith(query_lower):
-                    score = 60
-                elif any(word in name for word in query_words if len(word) > 2):
-                    score = 50
-                elif query_lower in name:
-                    score = 40
+                # Ticker starts with query
+                elif ticker_base.startswith(query_lower):
+                    score = 95
+                # Multi-word: ALL words must be present
+                elif len(query_words) > 1:
+                    if all(word in name for word in query_words):
+                        if name.startswith(query_lower):
+                            score = 90
+                        elif all(name.startswith(word) or f" {word}" in name for word in query_words):
+                            score = 85
+                        else:
+                            score = 70
+                # Single word matching
+                else:
+                    if name.startswith(query_lower):
+                        score = 80
+                    elif ticker.startswith(query_lower):
+                        score = 75
+                    elif query_lower in ticker:
+                        score = 60
+                    elif query_lower in name:
+                        words_in_name = name.split()
+                        if query_lower in words_in_name or any(w.startswith(query_lower) for w in words_in_name):
+                            score = 50
+                
                 result['_score'] = score
         
         # Remove duplicates (prefer higher scored items)
         seen_tickers = set()
         unique_results = []
         
-        # Sort by score first
-        results.sort(key=lambda x: x.get('_score', 0), reverse=True)
+        # Sort by score first, then by name
+        results.sort(key=lambda x: (-x.get('_score', 0), x.get('name', '')))
         
         for result in results:
             ticker = result.get('ticker', '').upper()
@@ -285,7 +311,16 @@ class StockService:
             "SPOTIFY": ["SPOT"],
             "ZOOM": ["ZM"],
             "OLA ELECTRIC": ["OLAELEC"],
-            "TATA SILVER": ["TATSILV"]
+            "TATA SILVER": ["TATSILV"],
+            "TATA MOTORS": ["TATAMOTORS"],
+            "TATA STEEL": ["TATASTEEL"],
+            "TATA POWER": ["TATAPOWER"],
+            "TATA CONSUMER": ["TATACONSUM"],
+            "TATA CONSULTANCY": ["TCS"],
+            "RELIANCE INDUSTRIES": ["RELIANCE"],
+            "INFOSYS": ["INFY"],
+            "HDFC BANK": ["HDFCBANK"],
+            "ICICI BANK": ["ICICIBANK"]
         }
         
         # Check for exact company name matches first

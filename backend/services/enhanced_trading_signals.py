@@ -254,10 +254,47 @@ def predict(ticker, owns_stock=False):
         
         # Make prediction
         try:
-            probability = model.predict_proba(X_processed)[0][1]
-        except:
-            # Fallback for single class predictions
-            probability = 0.5
+            # Ensure features match model expectations
+            if hasattr(model, 'feature_names_in_'):
+                expected_features = list(model.feature_names_in_)
+                # Reorder columns to match expected order
+                missing = [f for f in expected_features if f not in X_processed.columns]
+                if missing:
+                    print(f"Warning: Missing features {missing}, using 0 as default")
+                    for f in missing:
+                        X_processed[f] = 0
+                X_processed = X_processed[expected_features]
+            
+            proba = model.predict_proba(X_processed)
+            probability = float(proba[0][1])
+            print(f"✅ Prediction for {ticker}: {probability:.4f}")
+        except Exception as pred_error:
+            print(f"❌ Prediction error for {ticker}: {pred_error}")
+            # Use technical indicators for a simple rule-based fallback
+            rsi = latest_data.get('rsi_14', pd.Series([50])).iloc[0]
+            macd = latest_data.get('macd', pd.Series([0])).iloc[0]
+            bb_pos = latest_data.get('bb_position', pd.Series([0.5])).iloc[0]
+            
+            # Simple rule-based probability when model fails
+            score = 0.5
+            if pd.notna(rsi):
+                if rsi < 30:
+                    score += 0.15  # Oversold = bullish
+                elif rsi > 70:
+                    score -= 0.15  # Overbought = bearish
+            if pd.notna(macd):
+                if macd > 0:
+                    score += 0.1
+                else:
+                    score -= 0.1
+            if pd.notna(bb_pos):
+                if bb_pos < 0.2:
+                    score += 0.1  # Near lower band = bullish
+                elif bb_pos > 0.8:
+                    score -= 0.1  # Near upper band = bearish
+            
+            probability = max(0.1, min(0.9, score))
+            print(f"⚠️ Using rule-based fallback for {ticker}: {probability:.4f}")
         
         # Generate portfolio-aware signal
         signal_info = generate_portfolio_signal(probability, owns_stock, ticker)

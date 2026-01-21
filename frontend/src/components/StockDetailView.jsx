@@ -5,6 +5,8 @@ import PriceChart from './PriceChart';
 import PredictionPanel from './PredictionPanel';
 import StockOverview from './StockOverview';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 /**
  * StockDetailView - Groww-inspired full stock detail page
  */
@@ -26,7 +28,7 @@ const StockDetailView = ({ stock, onBack }) => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:8000/stocks/details?ticker=${stock.ticker}`
+          `${API_BASE_URL}/stocks/details?ticker=${stock.ticker}`
         );
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, TrendingUp, TrendingDown, Pause, AlertTriangle, Target, Shield } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 /**
  * PredictionPanel - Groww-style ML prediction display
  */
@@ -21,7 +23,7 @@ const PredictionPanel = ({ ticker, stockName }) => {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/predict?ticker=${ticker}&owns_stock=${ownsStock}`);
+      const response = await fetch(`${API_BASE_URL}/predict?ticker=${ticker}&owns_stock=${ownsStock}`);
       if (!response.ok) throw new Error('Prediction failed');
       const data = await response.json();
       

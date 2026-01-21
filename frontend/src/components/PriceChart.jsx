@@ -3,6 +3,8 @@ import { createChart } from 'lightweight-charts';
 import { motion } from 'framer-motion';
 import { BarChart3, AlertCircle, RefreshCw } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 /**
  * PriceChart - Groww-style professional chart with dark theme
  */
@@ -141,7 +143,7 @@ const PriceChart = ({ ticker }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/stocks/candles?ticker=${ticker}&period=${timeframe}&interval=${interval}`
+        `${API_BASE_URL}/stocks/candles?ticker=${ticker}&period=${timeframe}&interval=${interval}`
       );
       
       if (!response.ok) {

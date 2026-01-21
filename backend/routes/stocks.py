@@ -406,34 +406,69 @@ def get_stock_candles(
     period: str = Query("1mo", description="1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max"),
     interval: str = Query("1d", description="1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo")
 ):
-    """Get stock price history/candles"""
+    """Get stock price history/candles - returns last available data even when market is closed"""
     try:
         # Clean ticker
-        if not ticker.endswith('.NS'):
+        if not ticker.endswith('.NS') and not ticker.endswith('.BO'):
             ticker = f"{ticker}.NS"
             
         stock = yf.Ticker(ticker)
-        hist = stock.history(period=period, interval=interval)
+        
+        # For intraday intervals when market is closed, fall back to daily data
+        intraday_intervals = ['1m', '2m', '5m', '15m', '30m', '60m', '90m', '1h']
+        
+        if interval in intraday_intervals:
+            # Try fetching intraday data first
+            hist = stock.history(period=period, interval=interval)
+            
+            # If no intraday data (market closed), fall back to daily data
+            if hist.empty or len(hist) < 2:
+                print(f"No intraday data for {ticker}, falling back to daily data")
+                # Use more days for daily fallback
+                fallback_period = "5d" if period == "1d" else period
+                hist = stock.history(period=fallback_period, interval="1d")
+                interval = "1d"  # Update interval for response
+        else:
+            hist = stock.history(period=period, interval=interval)
+        
+        # If still empty, try with a longer period
+        if hist.empty:
+            print(f"No data for {ticker} with period {period}, trying 1mo")
+            hist = stock.history(period="1mo", interval="1d")
         
         if hist.empty:
-            raise ValueError("No data available")
+            raise ValueError(f"No data available for {ticker}. The stock may be delisted or the ticker is invalid.")
         
         # Convert to candles format
         candles = []
         for index, row in hist.iterrows():
+            # Handle both date and datetime indexes
+            if hasattr(index, 'strftime'):
+                if interval in intraday_intervals:
+                    time_str = index.strftime("%Y-%m-%d %H:%M")
+                else:
+                    time_str = index.strftime("%Y-%m-%d")
+            else:
+                time_str = str(index)
+                
             candles.append({
-                "time": index.strftime("%Y-%m-%d"),
-                "date": index.strftime("%Y-%m-%d"),
-                "open": float(row["Open"]),
-                "high": float(row["High"]), 
-                "low": float(row["Low"]),
-                "close": float(row["Close"]),
-                "volume": int(row["Volume"])
+                "time": time_str,
+                "date": time_str,
+                "open": float(row["Open"]) if pd.notna(row["Open"]) else None,
+                "high": float(row["High"]) if pd.notna(row["High"]) else None, 
+                "low": float(row["Low"]) if pd.notna(row["Low"]) else None,
+                "close": float(row["Close"]) if pd.notna(row["Close"]) else None,
+                "volume": int(row["Volume"]) if pd.notna(row["Volume"]) else 0
             })
+        
+        # Filter out any candles with None values
+        candles = [c for c in candles if c["close"] is not None]
         
         return {
             "candles": candles,
-            "ticker": ticker
+            "ticker": ticker,
+            "interval": interval,
+            "count": len(candles)
         }
         
     except Exception as e:

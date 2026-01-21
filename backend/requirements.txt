@@ -4,6 +4,4 @@ yfinance
 pandas
 numpy
 scikit-learn
-cachetools
-requests
-beautifulsoup4
+joblib

@@ -1,6 +1,3 @@
 """
-Services module for business logic and data processing.
+Services module - Production ML prediction service.
 """
-from .yahoo_service import YahooFinanceService
-from .stock_service import StockService
-from .trading_signals import TradingSignalSystem

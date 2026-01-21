@@ -1,17 +1,17 @@
 """
-Indian Stock Predictor API - Main Application
-Production-grade FastAPI application with clean architecture and multi-provider support.
+Stock Prediction API - Production Version
+Minimal FastAPI application focused on ML predictions.
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core.config import API_TITLE, API_VERSION, CORS_ORIGINS
-from routes import health, stocks, predict, providers
+from routes import predict
 
 # Initialize FastAPI app
 app = FastAPI(
-    title=API_TITLE,
-    version=API_VERSION,
-    description="AI-powered Indian stock prediction API with multi-provider data system"
+    title="Stock Prediction API",
+    version="4.0",
+    description="AI-powered stock prediction API"
 )
 
 # Configure CORS
@@ -23,17 +23,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(health.router, tags=["health"])
-app.include_router(stocks.router, tags=["stocks"])
+# Include main prediction router
 app.include_router(predict.router, tags=["prediction"])
-app.include_router(providers.router, prefix="/api", tags=["providers"])
+
+# Simple health check
+@app.get("/health")
+def health_check():
+    """Health check endpoint."""
+    return {
+        "status": "ok",
+        "service": "Stock Prediction API",
+        "version": "4.0"
+    }
 
 
 @app.on_event("startup")
 async def startup_event():
-    """Startup event - ready for real-time data fetching."""
-    print("✓ Server ready - using real-time Yahoo Finance data (no cache)")
+    """Startup event."""
+    print("✅ Enhanced Stock Prediction API ready!")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 """
-Core module for configuration and caching utilities.
+Core module for configuration.
 """
 from .config import *
-from .cache import *

@@ -1,4 +1,4 @@
 """
-Routes module for API endpoints.
+Routes module - Production prediction API.
 """
-from . import health, stocks, predict
+from . import predict

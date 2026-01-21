@@ -7,6 +7,7 @@ const PredictionPanel = ({ ticker, stockName }) => {
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [ownsStock, setOwnsStock] = useState(false);
 
   const handlePredict = async () => {
     if (!ticker) {
@@ -18,13 +19,13 @@ const PredictionPanel = ({ ticker, stockName }) => {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/predict?ticker=${ticker}`);
+      const response = await fetch(`http://localhost:8000/predict?ticker=${ticker}&owns_stock=${ownsStock}`);
       if (!response.ok) throw new Error('Prediction failed');
       const data = await response.json();
       
       // Handle advanced model response
       const signal = data.signal || data.predicted_direction || 'WAIT';
-      const probability = data.probability_up || 0;
+      const probability = data.probability || data.probability_up || 0;
       const confidence = data.confidence || 'LOW';
       
       setPrediction({
@@ -89,6 +90,32 @@ const PredictionPanel = ({ ticker, stockName }) => {
             </>
           )}
         </button>
+      </div>
+
+      {/* Ownership Toggle */}
+      <div className="ownership-toggle-container">
+        <div className="ownership-toggle">
+          <input 
+            type="checkbox"
+            id="owns-stock-toggle"
+            checked={ownsStock}
+            onChange={(e) => setOwnsStock(e.target.checked)}
+          />
+          <label htmlFor="owns-stock-toggle" className="toggle-label">
+            <span className="toggle-switch">
+              <span className="toggle-slider"></span>
+            </span>
+            <span className="toggle-text">
+              {ownsStock ? "📈 I own this stock" : "🛒 I don't own this stock"}
+            </span>
+          </label>
+        </div>
+        <div className="ownership-explanation">
+          {ownsStock 
+            ? "Get HOLD/SELL recommendations for your existing position" 
+            : "Get BUY/WAIT signals for potential new positions"
+          }
+        </div>
       </div>
 
       <div className="prediction-body">

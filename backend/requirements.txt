@@ -7,3 +7,5 @@ scikit-learn
 joblib
 requests
 python-dotenv
+xgboost
+lightgbm

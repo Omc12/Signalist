@@ -36,6 +36,15 @@ npm-debug.log*
 # Data
 *.db
 *.sqlite
+backend/data/fundamentals_cache.pkl
+
+# Models (large files)
+backend/models/*.pkl
+
+# Test/Debug files
+test_*.py
+debug_*.py
+verify_*.py
 
 # Misc
 *.log

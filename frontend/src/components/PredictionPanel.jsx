@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Cpu, TrendingUp, TrendingDown, Pause, AlertTriangle, Target, Shield } from 'lucide-react';
 
 /**
- * PredictionPanel - Premium dark mode ML prediction display
+ * PredictionPanel - Groww-style ML prediction display
  */
 const PredictionPanel = ({ ticker, stockName }) => {
   const [prediction, setPrediction] = useState(null);
@@ -23,7 +25,6 @@ const PredictionPanel = ({ ticker, stockName }) => {
       if (!response.ok) throw new Error('Prediction failed');
       const data = await response.json();
       
-      // Handle advanced model response
       const signal = data.signal || data.predicted_direction || 'WAIT';
       const probability = data.probability || data.probability_up || 0;
       const confidence = data.confidence || 'LOW';
@@ -49,35 +50,49 @@ const PredictionPanel = ({ ticker, stockName }) => {
     return 'hold';
   };
 
-  const getSignalEmoji = (signal) => {
-    if (signal === 'BUY' || signal === 'UP' || signal === 'STRONG BUY') return '🚀';
-    if (signal === 'SELL' || signal === 'DOWN' || signal === 'STRONG SELL') return '📉';
-    return '⏸️';
+  const getSignalIcon = (signal) => {
+    if (signal === 'BUY' || signal === 'UP' || signal === 'STRONG BUY') return <TrendingUp size={24} />;
+    if (signal === 'SELL' || signal === 'DOWN' || signal === 'STRONG SELL') return <TrendingDown size={24} />;
+    return <Pause size={24} />;
   };
 
   if (!ticker) {
     return (
-      <div className="prediction-card">
+      <motion.div 
+        className="prediction-card"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
         <div className="prediction-body">
           <div className="empty-state">
-            <span className="empty-state-icon">🤖</span>
+            <Cpu size={48} style={{ color: 'var(--groww-purple)', marginBottom: 16 }} />
             <p className="empty-state-text">
               Select a stock to get AI-powered predictions
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="prediction-card">
+    <motion.div 
+      className="prediction-card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1 }}
+    >
       <div className="prediction-header">
-        <h3 className="prediction-title">AI Prediction</h3>
-        <button
+        <h3 className="prediction-title">
+          <Cpu size={20} />
+          AI Price Prediction
+        </h3>
+        <motion.button
           className="predict-btn"
           onClick={handlePredict}
           disabled={loading}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
         >
           {loading ? (
             <>
@@ -86,10 +101,11 @@ const PredictionPanel = ({ ticker, stockName }) => {
             </>
           ) : (
             <>
-              🧠 Get Prediction
+              <Cpu size={16} />
+              Get Prediction
             </>
           )}
-        </button>
+        </motion.button>
       </div>
 
       {/* Ownership Toggle */}
@@ -106,7 +122,7 @@ const PredictionPanel = ({ ticker, stockName }) => {
               <span className="toggle-slider"></span>
             </span>
             <span className="toggle-text">
-              {ownsStock ? "📈 I own this stock" : "🛒 I don't own this stock"}
+              {ownsStock ? "I own this stock" : "I don't own this stock"}
             </span>
           </label>
         </div>
@@ -120,141 +136,121 @@ const PredictionPanel = ({ ticker, stockName }) => {
 
       <div className="prediction-body">
         {error && (
-          <div className="prediction-disclaimer" style={{ borderLeftColor: 'var(--accent-red)' }}>
-            <span className="prediction-disclaimer-icon">❌</span>
+          <div className="prediction-disclaimer" style={{ borderLeftColor: 'var(--groww-red)' }}>
+            <AlertTriangle size={16} />
             <span>{error}</span>
           </div>
         )}
 
         {!prediction && !error && !loading && (
           <div className="empty-state" style={{ padding: '40px 20px' }}>
-            <span className="empty-state-icon">📊</span>
-            <p className="empty-state-text">
-              Click "Get Prediction" to analyze {stockName || ticker}
+            <Cpu size={48} style={{ color: 'var(--groww-purple)', marginBottom: 16 }} />
+            <p style={{ color: 'var(--text-secondary)' }}>
+              Click "Get Prediction" to analyze <strong>{stockName || ticker}</strong>
             </p>
           </div>
         )}
 
         {prediction && (
-          <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
             <div className="prediction-main-result">
               <div className="prediction-signal">
                 <span className="signal-label">AI Signal</span>
-                <div className={`signal-badge ${getSignalClass(prediction.signal)}`}>
-                  {getSignalEmoji(prediction.signal)} {prediction.signal}
-                </div>
+                <motion.div 
+                  className={`signal-badge ${getSignalClass(prediction.signal)}`}
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 200 }}
+                >
+                  {getSignalIcon(prediction.signal)} {prediction.signal}
+                </motion.div>
               </div>
 
               <div className="prediction-probability">
-                <span className="probability-label">Probability</span>
+                <span className="probability-label">Confidence Score</span>
                 <div className="probability-value">
                   {prediction.displayConfidence || 'N/A'}
                 </div>
-              </div>
-
-              <div className="prediction-confidence">
-                <span className="signal-label">Confidence</span>
-                <div className={`confidence-badge ${prediction.confidence?.toLowerCase()}`}>
-                  {prediction.confidence}
+                <div className="probability-bar">
+                  <motion.div 
+                    className="probability-fill"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${prediction.probability * 100}%` }}
+                    transition={{ duration: 0.8 }}
+                  />
                 </div>
               </div>
             </div>
 
-            {/* VIX Status */}
-            {prediction.vix && (
-              <div className="prediction-metrics">
-                <div className="metric-item">
-                  <span className="metric-label">VIX Status</span>
-                  <span className={`metric-value ${prediction.vix.status === 'SAFE' ? 'text-green' : 'text-red'}`}>
-                    {prediction.vix.status} ({prediction.vix.current})
-                  </span>
+            <div className="prediction-details">
+              {prediction.action && (
+                <div className="prediction-detail-card">
+                  <span className="detail-label">Recommended Action</span>
+                  <span className="detail-value">{prediction.action}</span>
                 </div>
-                <div className="metric-item">
-                  <span className="metric-label">Algorithm</span>
-                  <span className="metric-value" style={{fontSize: '11px'}}>
-                    {prediction.algorithm || 'ML Model'}
-                  </span>
+              )}
+              
+              {prediction.reason && (
+                <div className="prediction-detail-card">
+                  <span className="detail-label">Analysis Reason</span>
+                  <span className="detail-value">{prediction.reason}</span>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Backtest Performance */}
-            {prediction.backtest && prediction.backtest.total_signals > 0 && (
-              <div className="prediction-metrics">
-                <div className="metric-item">
-                  <span className="metric-label">Win Rate</span>
-                  <span className="metric-value text-green">
-                    {(prediction.backtest.win_rate * 100).toFixed(1)}%
-                  </span>
+              {prediction.confidence && (
+                <div className="prediction-detail-card">
+                  <span className="detail-label">Confidence Level</span>
+                  <span className="detail-value">{prediction.confidence}</span>
                 </div>
-                <div className="metric-item">
-                  <span className="metric-label">Avg Return</span>
-                  <span className={`metric-value ${prediction.backtest.avg_return > 0 ? 'text-green' : 'text-red'}`}>
-                    {(prediction.backtest.avg_return * 100).toFixed(2)}%
-                  </span>
-                </div>
-                <div className="metric-item">
-                  <span className="metric-label">Total Signals</span>
-                  <span className="metric-value">
-                    {prediction.backtest.total_signals}
-                  </span>
-                </div>
-              </div>
-            )}
+              )}
 
-            {/* Technical Indicators */}
-            {prediction.technicals && (
-              <div className="prediction-metrics">
-                <div className="metric-item">
-                  <span className="metric-label">RSI</span>
-                  <span className={`metric-value ${prediction.technicals.rsi < 30 ? 'text-green' : prediction.technicals.rsi > 70 ? 'text-red' : ''}`}>
-                    {prediction.technicals.rsi}
-                  </span>
+              {prediction.algorithm && (
+                <div className="prediction-detail-card">
+                  <span className="detail-label">Algorithm</span>
+                  <span className="detail-value">{prediction.algorithm}</span>
                 </div>
-                <div className="metric-item">
-                  <span className="metric-label">MACD</span>
-                  <span className={`metric-value ${prediction.technicals.macd > 0 ? 'text-green' : 'text-red'}`}>
-                    {prediction.technicals.macd.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Trading Parameters */}
             {prediction.trading_params && (
-              <div className="prediction-metrics" style={{borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '12px', marginTop: '12px'}}>
-                <div className="metric-item">
-                  <span className="metric-label">Target Profit</span>
-                  <span className="metric-value text-green">
+              <div className="stats-grid" style={{ marginTop: 16 }}>
+                <div className="stat-card">
+                  <div className="stat-label">
+                    <Target size={14} style={{ marginRight: 4 }} />
+                    Target Profit
+                  </div>
+                  <div className="stat-value green">
                     {prediction.trading_params.target_profit}
-                  </span>
+                  </div>
                 </div>
-                <div className="metric-item">
-                  <span className="metric-label">Stop Loss</span>
-                  <span className="metric-value text-red">
+                <div className="stat-card">
+                  <div className="stat-label">
+                    <Shield size={14} style={{ marginRight: 4 }} />
+                    Stop Loss
+                  </div>
+                  <div className="stat-value red">
                     {prediction.trading_params.stop_loss}
-                  </span>
-                </div>
-                <div className="metric-item">
-                  <span className="metric-label">Horizon</span>
-                  <span className="metric-value">
-                    {prediction.trading_params.horizon_days} days
-                  </span>
+                  </div>
                 </div>
               </div>
             )}
 
             <div className="prediction-disclaimer">
-              <span className="prediction-disclaimer-icon">⚠️</span>
+              <AlertTriangle size={16} className="prediction-disclaimer-icon" />
               <span>
                 For educational purposes only. This is not financial advice. 
                 Always do your own research before investing.
               </span>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

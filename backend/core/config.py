@@ -1,5 +1,5 @@
 """
-Configuration settings for the stock prediction API.
+Configuration settings for Signalist API.
 """
 import os
 from pathlib import Path
@@ -10,15 +10,14 @@ if env_path.exists():
     try:
         from dotenv import load_dotenv
         load_dotenv(env_path)
-        print(f"✓ Loaded API keys from .env")
     except ImportError:
-        print("⚠️  Install python-dotenv: pip install python-dotenv")
+        pass
 
 # API Settings
-API_HOST = "0.0.0.0"
-API_PORT = 8000
-API_TITLE = "Indian Stock Predictor API"
-API_VERSION = "2.0"
+API_HOST = os.getenv("API_HOST", "0.0.0.0")
+API_PORT = int(os.getenv("API_PORT", 8000))
+API_TITLE = "Signalist API"
+API_VERSION = "4.0"
 
 # CORS Settings
 CORS_ORIGINS = [
@@ -26,7 +25,9 @@ CORS_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
+    os.getenv("FRONTEND_URL", ""),
 ]
+CORS_ORIGINS = [url for url in CORS_ORIGINS if url]  # Remove empty strings
 
 # Cache Settings (in seconds)
 CACHE_STOCK_DETAILS = 300  # 5 minutes
@@ -38,7 +39,11 @@ CACHE_STOCK_LIST = 3600  # 1 hour
 # Data Settings
 STOCKS_JSON_PATH = "data/stocks_nse.json"
 
-# Confidence thresholds (used by old system - kept for compatibility)
+# API Keys
+FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY", "")
+ALPHA_VANTAGE_API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY", "")
+
+# Confidence thresholds
 CONFIDENCE_HIGH = 0.65
 CONFIDENCE_MEDIUM = 0.55
 

@@ -5,7 +5,7 @@ Minimal FastAPI application focused on ML predictions.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core.config import API_TITLE, API_VERSION, CORS_ORIGINS
-from routes import predict
+from routes import predict, stocks
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -23,8 +23,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include main prediction router
+# Include routes
 app.include_router(predict.router, tags=["prediction"])
+app.include_router(stocks.router, tags=["stocks"])
 
 # Simple health check
 @app.get("/health")
@@ -32,7 +33,7 @@ def health_check():
     """Health check endpoint."""
     return {
         "status": "ok",
-        "service": "Stock Prediction API",
+        "service": "Signalist API",
         "version": "4.0"
     }
 
@@ -40,7 +41,7 @@ def health_check():
 @app.on_event("startup")
 async def startup_event():
     """Startup event."""
-    print("✅ Enhanced Stock Prediction API ready!")
+    print("✅ Signalist API ready!")
 
 
 if __name__ == "__main__":

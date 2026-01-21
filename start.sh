@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Starting Investment Helper..."
+echo "🚀 Starting Signalist..."
 echo "================================"
 echo ""
 
@@ -25,6 +25,13 @@ if [ ! -d "frontend/node_modules" ]; then
 else
     echo "✅ Frontend dependencies installed"
 fi
+
+echo ""
+echo "🔧 Cleaning up any existing processes..."
+# Kill any existing processes on our ports
+lsof -ti:8000 | xargs kill -9 2>/dev/null || true
+lsof -ti:5173 | xargs kill -9 2>/dev/null || true
+lsof -ti:5174 | xargs kill -9 2>/dev/null || true
 
 echo ""
 echo "🎯 Starting services..."

@@ -1,0 +1,818 @@
+[
+  {
+    "symbol": "RELIANCE.NS",
+    "name": "Reliance Industries Limited",
+    "sector": "Energy",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TCS.NS",
+    "name": "Tata Consultancy Services Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HDFCBANK.NS",
+    "name": "HDFC Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "INFY.NS",
+    "name": "Infosys Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HINDUNILVR.NS",
+    "name": "Hindustan Unilever Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ICICIBANK.NS",
+    "name": "ICICI Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ITC.NS",
+    "name": "ITC Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SBIN.NS",
+    "name": "State Bank of India",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BHARTIARTL.NS",
+    "name": "Bharti Airtel Limited",
+    "sector": "Telecom",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "KOTAKBANK.NS",
+    "name": "Kotak Mahindra Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "LT.NS",
+    "name": "Larsen & Toubro Limited",
+    "sector": "Construction",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "AXISBANK.NS",
+    "name": "Axis Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ASIANPAINT.NS",
+    "name": "Asian Paints Limited",
+    "sector": "Paint",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "MARUTI.NS",
+    "name": "Maruti Suzuki India Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HCLTECH.NS",
+    "name": "HCL Technologies Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BAJFINANCE.NS",
+    "name": "Bajaj Finance Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "WIPRO.NS",
+    "name": "Wipro Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SUNPHARMA.NS",
+    "name": "Sun Pharmaceutical Industries Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TITAN.NS",
+    "name": "Titan Company Limited",
+    "sector": "Jewellery",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ULTRACEMCO.NS",
+    "name": "UltraTech Cement Limited",
+    "sector": "Cement",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "NESTLEIND.NS",
+    "name": "Nestle India Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TECHM.NS",
+    "name": "Tech Mahindra Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BAJAJFINSV.NS",
+    "name": "Bajaj Finserv Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ONGC.NS",
+    "name": "Oil & Natural Gas Corporation Limited",
+    "sector": "Oil & Gas",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "NTPC.NS",
+    "name": "NTPC Limited",
+    "sector": "Power",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "POWERGRID.NS",
+    "name": "Power Grid Corporation of India Limited",
+    "sector": "Power",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TATASTEEL.NS",
+    "name": "Tata Steel Limited",
+    "sector": "Steel",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "M&M.NS",
+    "name": "Mahindra & Mahindra Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "JSWSTEEL.NS",
+    "name": "JSW Steel Limited",
+    "sector": "Steel",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "DRREDDY.NS",
+    "name": "Dr. Reddy's Laboratories Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "DIVISLAB.NS",
+    "name": "Divi's Laboratories Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BRITANNIA.NS",
+    "name": "Britannia Industries Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ADANIPORTS.NS",
+    "name": "Adani Ports and Special Economic Zone Limited",
+    "sector": "Infrastructure",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "CIPLA.NS",
+    "name": "Cipla Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HEROMOTOCO.NS",
+    "name": "Hero MotoCorp Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "EICHERMOT.NS",
+    "name": "Eicher Motors Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "COALINDIA.NS",
+    "name": "Coal India Limited",
+    "sector": "Mining",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "GRASIM.NS",
+    "name": "Grasim Industries Limited",
+    "sector": "Cement",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BPCL.NS",
+    "name": "Bharat Petroleum Corporation Limited",
+    "sector": "Oil & Gas",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "INDUSINDBK.NS",
+    "name": "IndusInd Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ADANIENT.NS",
+    "name": "Adani Enterprises Limited",
+    "sector": "Diversified",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SHREECEM.NS",
+    "name": "Shree Cement Limited",
+    "sector": "Cement",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "APOLLOHOSP.NS",
+    "name": "Apollo Hospitals Enterprise Limited",
+    "sector": "Healthcare",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TATACONSUM.NS",
+    "name": "Tata Consumer Products Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HINDALCO.NS",
+    "name": "Hindalco Industries Limited",
+    "sector": "Metals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TATAMOTORS.NS",
+    "name": "Tata Motors Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SBILIFE.NS",
+    "name": "SBI Life Insurance Company Limited",
+    "sector": "Insurance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HDFC.NS",
+    "name": "Housing Development Finance Corporation Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HDFCLIFE.NS",
+    "name": "HDFC Life Insurance Company Limited",
+    "sector": "Insurance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BAJAJ-AUTO.NS",
+    "name": "Bajaj Auto Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "IOC.NS",
+    "name": "Indian Oil Corporation Limited",
+    "sector": "Oil & Gas",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "VEDL.NS",
+    "name": "Vedanta Limited",
+    "sector": "Mining",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "DABUR.NS",
+    "name": "Dabur India Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "GODREJCP.NS",
+    "name": "Godrej Consumer Products Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SIEMENS.NS",
+    "name": "Siemens Limited",
+    "sector": "Engineering",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ABB.NS",
+    "name": "ABB India Limited",
+    "sector": "Engineering",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PIDILITIND.NS",
+    "name": "Pidilite Industries Limited",
+    "sector": "Chemicals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BOSCHLTD.NS",
+    "name": "Bosch Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "HAVELLS.NS",
+    "name": "Havells India Limited",
+    "sector": "Electricals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "AMBUJACEM.NS",
+    "name": "Ambuja Cements Limited",
+    "sector": "Cement",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ACC.NS",
+    "name": "ACC Limited",
+    "sector": "Cement",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "DLF.NS",
+    "name": "DLF Limited",
+    "sector": "Real Estate",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BANKBARODA.NS",
+    "name": "Bank of Baroda",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PNBHOUSING.NS",
+    "name": "PNB Housing Finance Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "GAIL.NS",
+    "name": "GAIL (India) Limited",
+    "sector": "Oil & Gas",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "MOTHERSON.NS",
+    "name": "Samvardhana Motherson International Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BERGEPAINT.NS",
+    "name": "Berger Paints India Limited",
+    "sector": "Paint",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "MARICO.NS",
+    "name": "Marico Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "COLPAL.NS",
+    "name": "Colgate-Palmolive (India) Limited",
+    "sector": "FMCG",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "INDIGO.NS",
+    "name": "InterGlobe Aviation Limited",
+    "sector": "Aviation",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PNB.NS",
+    "name": "Punjab National Bank",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BANDHANBNK.NS",
+    "name": "Bandhan Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "FEDERALBNK.NS",
+    "name": "The Federal Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "IDFC.NS",
+    "name": "IDFC Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "IDFCFIRSTB.NS",
+    "name": "IDFC First Bank Limited",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "LICHSGFIN.NS",
+    "name": "LIC Housing Finance Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "CANBK.NS",
+    "name": "Canara Bank",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "UNIONBANK.NS",
+    "name": "Union Bank of India",
+    "sector": "Banking",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PFC.NS",
+    "name": "Power Finance Corporation Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "RECLTD.NS",
+    "name": "REC Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "NMDC.NS",
+    "name": "NMDC Limited",
+    "sector": "Mining",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SAIL.NS",
+    "name": "Steel Authority of India Limited",
+    "sector": "Steel",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "JINDALSTEL.NS",
+    "name": "Jindal Steel & Power Limited",
+    "sector": "Steel",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TATAPOWER.NS",
+    "name": "Tata Power Company Limited",
+    "sector": "Power",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TORNTPHARM.NS",
+    "name": "Torrent Pharmaceuticals Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "LUPIN.NS",
+    "name": "Lupin Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BIOCON.NS",
+    "name": "Biocon Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "AUROPHARMA.NS",
+    "name": "Aurobindo Pharma Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ALKEM.NS",
+    "name": "Alkem Laboratories Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ZYDUSLIFE.NS",
+    "name": "Zydus Lifesciences Limited",
+    "sector": "Pharma",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "MUTHOOTFIN.NS",
+    "name": "Muthoot Finance Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "MANAPPURAM.NS",
+    "name": "Manappuram Finance Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "CHOLAFIN.NS",
+    "name": "Cholamandalam Investment and Finance Company Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PEL.NS",
+    "name": "Piramal Enterprises Limited",
+    "sector": "Finance",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "MPHASIS.NS",
+    "name": "MPhasis Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "LTTS.NS",
+    "name": "L&T Technology Services Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "COFORGE.NS",
+    "name": "Coforge Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PERSISTENT.NS",
+    "name": "Persistent Systems Limited",
+    "sector": "IT Services",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TVSMOTOR.NS",
+    "name": "TVS Motor Company Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ESCORTS.NS",
+    "name": "Escorts Kubota Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ASHOKLEY.NS",
+    "name": "Ashok Leyland Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BALKRISIND.NS",
+    "name": "Balkrishna Industries Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "MRF.NS",
+    "name": "MRF Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "APOLLOTYRE.NS",
+    "name": "Apollo Tyres Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "CEAT.NS",
+    "name": "CEAT Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "GOODYEAR.NS",
+    "name": "Goodyear India Limited",
+    "sector": "Automobile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "UPL.NS",
+    "name": "UPL Limited",
+    "sector": "Chemicals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SRF.NS",
+    "name": "SRF Limited",
+    "sector": "Chemicals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ATUL.NS",
+    "name": "Atul Limited",
+    "sector": "Chemicals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "DEEPAKNTR.NS",
+    "name": "Deepak Nitrite Limited",
+    "sector": "Chemicals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "VOLTAS.NS",
+    "name": "Voltas Limited",
+    "sector": "Consumer Durables",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "WHIRLPOOL.NS",
+    "name": "Whirlpool of India Limited",
+    "sector": "Consumer Durables",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BLUESTARCO.NS",
+    "name": "Blue Star Limited",
+    "sector": "Consumer Durables",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "CROMPTON.NS",
+    "name": "Crompton Greaves Consumer Electricals Limited",
+    "sector": "Electricals",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "DIXON.NS",
+    "name": "Dixon Technologies (India) Limited",
+    "sector": "Electronics",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "AMBER.NS",
+    "name": "Amber Enterprises India Limited",
+    "sector": "Consumer Durables",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "JUBLFOOD.NS",
+    "name": "Jubilant FoodWorks Limited",
+    "sector": "Food & Beverages",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "WESTLIFE.NS",
+    "name": "Westlife Foodworld Limited",
+    "sector": "Food & Beverages",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ZOMATO.NS",
+    "name": "Zomato Limited",
+    "sector": "Food & Beverages",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "NAUKRI.NS",
+    "name": "Info Edge (India) Limited",
+    "sector": "Internet",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ZEEL.NS",
+    "name": "Zee Entertainment Enterprises Limited",
+    "sector": "Media",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SUNTV.NS",
+    "name": "Sun TV Network Limited",
+    "sector": "Media",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PVR.NS",
+    "name": "PVR INOX Limited",
+    "sector": "Media",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "TRENT.NS",
+    "name": "Trent Limited",
+    "sector": "Retail",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ABFRL.NS",
+    "name": "Aditya Birla Fashion and Retail Limited",
+    "sector": "Retail",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SHOPERSTOP.NS",
+    "name": "Shoppers Stop Limited",
+    "sector": "Retail",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PAGEIND.NS",
+    "name": "Page Industries Limited",
+    "sector": "Textile",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "RELAXO.NS",
+    "name": "Relaxo Footwears Limited",
+    "sector": "Footwear",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "BATA.NS",
+    "name": "Bata India Limited",
+    "sector": "Footwear",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "IRCTC.NS",
+    "name": "Indian Railway Catering and Tourism Corporation Limited",
+    "sector": "Travel",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "ADANIGREEN.NS",
+    "name": "Adani Green Energy Limited",
+    "sector": "Renewable Energy",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "SUZLON.NS",
+    "name": "Suzlon Energy Limited",
+    "sector": "Renewable Energy",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "NYKAA.NS",
+    "name": "FSN E-Commerce Ventures Limited",
+    "sector": "E-Commerce",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "PAYTM.NS",
+    "name": "One 97 Communications Limited",
+    "sector": "Fintech",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "DELHIVERY.NS",
+    "name": "Delhivery Limited",
+    "sector": "Logistics",
+    "exchange": "NSE"
+  },
+  {
+    "symbol": "POLICYBZR.NS",
+    "name": "PB Fintech Limited",
+    "sector": "Fintech",
+    "exchange": "NSE"
+  }
+]

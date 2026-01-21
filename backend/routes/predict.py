@@ -1,5 +1,5 @@
 """
-Stock prediction routes - Production version.
+Signalist prediction routes - Production version.
 """
 from fastapi import APIRouter, HTTPException, Query
 from typing import Optional

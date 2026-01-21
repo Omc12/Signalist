@@ -25,8 +25,8 @@ CORS_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5174",
+    "https://signalist-stock-ai.vercel.app",  # Your Vercel production URL
     os.getenv("FRONTEND_URL", ""),
-    "https://*.vercel.app",  # Allow all Vercel deployments
 ]
 CORS_ORIGINS = [url for url in CORS_ORIGINS if url]  # Remove empty strings
 

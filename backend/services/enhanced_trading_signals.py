@@ -11,8 +11,9 @@ from datetime import datetime, timedelta
 import warnings
 warnings.filterwarnings('ignore')
 
-# Model path
-MODEL_FILE = '/Users/omchimurkar1/Desktop/Investment helper/backend/models/enhanced_trading_model.pkl'
+# Model path - use relative path from this file's location
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_FILE = os.path.join(BASE_DIR, 'models', 'enhanced_trading_model.pkl')
 
 class EnhancedFeatureEngineer:
     """Feature engineering matching the training pipeline"""

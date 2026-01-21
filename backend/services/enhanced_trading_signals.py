@@ -212,12 +212,24 @@ def load_enhanced_model():
 def get_stock_data(ticker, period='1y'):
     """Fetch stock data from Yahoo Finance"""
     try:
-        # Clean ticker
-        if not ticker.endswith('.NS'):
-            ticker = f"{ticker}.NS"
-        
-        stock = yf.Ticker(ticker)
-        data = stock.history(period=period)
+        # Handle ticker suffix - support both NSE (.NS) and BSE (.BO)
+        if not ticker.endswith('.NS') and not ticker.endswith('.BO'):
+            # Try NSE first, then BSE if NSE fails
+            nse_ticker = f"{ticker}.NS"
+            stock = yf.Ticker(nse_ticker)
+            data = stock.history(period=period)
+            
+            if data.empty:
+                # Try BSE
+                bse_ticker = f"{ticker}.BO"
+                stock = yf.Ticker(bse_ticker)
+                data = stock.history(period=period)
+                ticker = bse_ticker
+            else:
+                ticker = nse_ticker
+        else:
+            stock = yf.Ticker(ticker)
+            data = stock.history(period=period)
         
         if data.empty:
             raise ValueError(f"No data available for {ticker}")
@@ -248,11 +260,13 @@ def predict(ticker, owns_stock=False):
         selected_features = model_components.get('selected_features', model_components.get('features', []))
         metadata = model_components['metadata']
         
-        # Get stock data
+        # Get stock data (this also resolves the correct ticker suffix)
         stock_data = get_stock_data(ticker)
         
-        # Clean ticker for yfinance
-        clean_ticker = ticker if ticker.endswith('.NS') else f"{ticker}.NS"
+        # Get the resolved ticker from the data (handles both .NS and .BO)
+        clean_ticker = stock_data['Symbol'].iloc[0] if 'Symbol' in stock_data.columns else ticker
+        if not clean_ticker.endswith('.NS') and not clean_ticker.endswith('.BO'):
+            clean_ticker = f"{clean_ticker}.NS"
         
         # Feature engineering (pass ticker for fundamental data)
         featured_data = EnhancedFeatureEngineer.calculate_technical_indicators(stock_data, clean_ticker)

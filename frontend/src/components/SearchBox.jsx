@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, TrendingUp } from 'lucide-react';
 
+// Use environment variable for API URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 /**
  * SearchBox - Modern autocomplete search with animations
  */
@@ -43,7 +46,7 @@ const SearchBox = ({ onSelectStock, placeholder = "Search stocks..." }) => {
       try {
         // Use the dynamic search endpoint with lower limit for focused results
         const response = await fetch(
-          `http://localhost:8000/stocks?search=${encodeURIComponent(query)}&limit=10`
+          `${API_BASE_URL}/stocks?search=${encodeURIComponent(query)}&limit=10`
         );
         
         if (!response.ok) {

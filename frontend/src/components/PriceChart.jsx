@@ -68,13 +68,13 @@ const PriceChart = ({ ticker }) => {
             color: 'rgba(255, 255, 255, 0.4)',
             width: 1,
             style: 2,
-            labelBackgroundColor: '#5367ff',
+            labelBackgroundColor: '#b8b9c0',
           },
           horzLine: {
             color: 'rgba(255, 255, 255, 0.4)',
             width: 1,
             style: 2,
-            labelBackgroundColor: '#5367ff',
+            labelBackgroundColor: '#b5b7bf',
           },
         },
         rightPriceScale: {
@@ -90,8 +90,8 @@ const PriceChart = ({ ticker }) => {
 
       // Use Groww green for the area series
       const areaSeries = chart.addAreaSeries({
-        lineColor: '#00d09c',
-        topColor: 'rgba(0, 208, 156, 0.35)',
+        lineColor: '#f2f2f2',
+        topColor: 'rgba(153, 153, 153, 0.35)',
         bottomColor: 'rgba(0, 208, 156, 0.02)',
         lineWidth: 2,
         priceFormat: { type: 'price', precision: 2, minMove: 0.01 },

@@ -8,6 +8,7 @@ AI-powered stock insights for Indian (NSE) stocks. Features machine learning pre
 - **99 Features**: 72 technical indicators + 27 fundamental metrics (P/E, P/B, ROE, etc.)
 - **235K+ Training Samples**: Trained on Nifty 50 stocks + ETFs
 - **Real-time Data**: Live prices from Yahoo Finance
+- **AI News Analysis**: RAG with Newsdata.io + Google Gemini LLM for sentiment
 - **Modern UI**: Dark Groww-inspired theme with interactive charts
 
 ## 🏗️ Architecture
@@ -102,10 +103,26 @@ cd backend
 cp .env.example .env
 ```
 
-Environment variables:
+### Required Variables
 - `API_HOST`: Server host (default: 0.0.0.0)
 - `API_PORT`: Server port (default: 8000)
 - `FRONTEND_URL`: Frontend URL for CORS
+
+### Optional: AI News Analysis (RAG)
+
+Enable AI-powered sentiment analysis from news articles:
+
+1. **Get free API keys** (takes 5 minutes each):
+   - Newsdata.io: https://newsdata.io/register (200 requests/day)
+   - Google Gemini: https://aistudio.google.com (60 requests/min)
+
+2. **Add to `.env`**:
+   ```
+   NEWSDATA_API_KEY=your_newsdata_key_here
+   GEMINI_API_KEY=your_gemini_key_here
+   ```
+
+3. **Done!** The system will automatically fetch and analyze news for each prediction.
 
 ## 📁 Data Sources
 

@@ -247,7 +247,48 @@ def get_stock_data(ticker, period='1y'):
         raise ValueError(f"Failed to fetch data for {ticker}: {str(e)}")
 
 
-def predict(ticker, owns_stock=False):
+def calculate_rag_adjustment(rag_features: dict) -> float:
+    """
+    Calculate probability adjustment based on RAG news features.
+    
+    Returns a value between -0.20 and +0.20 to add to model probability.
+    Positive = bullish news, Negative = bearish news.
+    """
+    if not rag_features:
+        return 0.0
+    
+    # Extract features with defaults
+    sentiment = rag_features.get('rag_sentiment', 0.0)  # -1 to 1
+    strength = rag_features.get('rag_sentiment_strength', 0.0)  # 0 to 1
+    confidence = rag_features.get('rag_confidence', 0.0)  # 0 to 1
+    num_bullish = rag_features.get('num_bullish_drivers', 0)
+    num_bearish = rag_features.get('num_bearish_risks', 0)
+    event_present = rag_features.get('event_present', 0)
+    uncertainty = rag_features.get('uncertainty_present', 0)
+    
+    # Base adjustment from sentiment (weighted by strength and confidence)
+    base_adjustment = sentiment * strength * confidence * 0.15  # Max ±15%
+    
+    # Driver/risk balance adjustment
+    driver_balance = (num_bullish - num_bearish) * 0.02  # ±2% per driver difference
+    driver_balance = max(-0.06, min(0.06, driver_balance))  # Cap at ±6%
+    
+    # Event boost (events make news more impactful)
+    event_multiplier = 1.3 if event_present else 1.0
+    
+    # Uncertainty penalty (reduce adjustment magnitude)
+    uncertainty_factor = 0.7 if uncertainty else 1.0
+    
+    # Combine all factors
+    adjustment = (base_adjustment + driver_balance) * event_multiplier * uncertainty_factor
+    
+    # Final clamp to ±20%
+    adjustment = max(-0.20, min(0.20, adjustment))
+    
+    return adjustment
+
+
+def predict(ticker, owns_stock=False, rag_features=None):
     """
     Enhanced prediction with preprocessing pipeline
     """
@@ -273,7 +314,23 @@ def predict(ticker, owns_stock=False):
         
         # Get latest data point
         latest_data = featured_data.iloc[-1:].copy()
-        
+
+        # Inject RAG features if provided
+        if rag_features is not None:
+            for key, value in rag_features.items():
+                latest_data[key] = value
+
+        else:
+            # Ensure RAG feature columns exist even if not provided
+            latest_data["rag_sentiment"] = 0.0
+            latest_data["rag_sentiment_strength"] = 0.0
+            latest_data["rag_confidence"] = 0.0
+            latest_data["num_bullish_drivers"] = 0
+            latest_data["num_bearish_risks"] = 0
+            latest_data["event_present"] = 0
+            latest_data["uncertainty_present"] = 0
+
+
         # Use the saved selected_features from training
         if selected_features and len(selected_features) > 0:
             # Filter to available features
@@ -315,6 +372,17 @@ def predict(ticker, owns_stock=False):
             proba = model.predict_proba(X_processed)
             probability = float(proba[0][1])
             print(f"✅ Prediction for {ticker}: {probability:.4f} (using {len(selected_features)} features)")
+            
+            # Apply RAG-based adjustment if features provided
+            if rag_features:
+                rag_adjustment = calculate_rag_adjustment(rag_features)
+                original_prob = probability
+                probability += rag_adjustment
+                probability = max(0.0, min(1.0, probability))  # Clamp to [0, 1]
+                
+                if abs(rag_adjustment) > 0.01:
+                    print(f"📰 RAG adjustment: {original_prob:.4f} → {probability:.4f} (Δ {rag_adjustment:+.4f})")
+                    
         except Exception as pred_error:
             print(f"❌ Prediction error for {ticker}: {pred_error}")
             # Use technical indicators for a simple rule-based fallback

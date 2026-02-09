@@ -600,7 +600,24 @@ def train_advanced_model():
     print(f"\n✓ Processed {len(processed)} symbols")
     
     all_data = pd.concat(processed)
-    
+
+    # --------------------------------------------------
+    # RAG news features (default = no news during training)
+    # --------------------------------------------------
+    rag_feature_cols = [
+        "rag_sentiment",
+        "rag_sentiment_strength",
+        "rag_confidence",
+        "num_bullish_drivers",
+        "num_bearish_risks",
+        "event_present",
+        "uncertainty_present",
+    ]
+
+    for col in rag_feature_cols:
+        if col not in all_data.columns:
+            all_data[col] = 0
+
     # Filter to only strong signals (>2% moves)
     if 'strong_signal' in all_data.columns:
         strong_data = all_data[all_data['strong_signal'] == 1]

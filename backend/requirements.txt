@@ -9,3 +9,5 @@ requests
 python-dotenv
 xgboost
 lightgbm
+google-generativeai>=0.8.0
+

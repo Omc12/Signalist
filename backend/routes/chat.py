@@ -5,11 +5,13 @@ Allows users to chat with the AI about specific stocks using RAG context.
 from fastapi import APIRouter, HTTPException, Body
 from pydantic import BaseModel
 from typing import Optional, List, Dict
+import os
 import requests
 import google.generativeai as genai
-from core.config import GEMINI_API_KEY, NEWSDATA_API_KEY
+from dotenv import load_dotenv
 
 router = APIRouter()
+load_dotenv()
 
 # Data models
 class ChatRequest(BaseModel):
@@ -28,10 +30,10 @@ async def chat_with_stock(request: ChatRequest):
     """
     try:
         # Check API Keys
-        newsdata_key = NEWSDATA_API_KEY.strip()
-        gemini_key = GEMINI_API_KEY.strip()
+        newsdata_key = os.getenv("NEWSDATA_API_KEY", "").strip()
+        gemini_key = os.getenv("GEMINI_API_KEY", "").strip()
         
-        if not gemini_key or gemini_key == "gemini_api_key_here":
+        if not gemini_key or gemini_key == "your_gemini_api_key_here":
             return ChatResponse(
                 response="I'm sorry, but I can't analyze this stock right now because the AI service is not configured. Please add a valid GEMINI_API_KEY to the backend .env file.",
                 sources=[]
@@ -41,7 +43,7 @@ async def chat_with_stock(request: ChatRequest):
         context_text = ""
         sources = []
         
-        if newsdata_key and newsdata_key != "newsdata_api_key_here":
+        if newsdata_key and newsdata_key != "your_newsdata_api_key_here":
             try:
                 # Map ticker to company name
                 ticker_map = {

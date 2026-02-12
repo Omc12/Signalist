@@ -44,10 +44,6 @@ STOCKS_JSON_PATH = "data/stocks_nse.json"
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY", "")
 ALPHA_VANTAGE_API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY", "")
 
-# AI & News API Keys (for RAG features)
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-NEWSDATA_API_KEY = os.getenv("NEWSDATA_API_KEY", "")
-
 # Confidence thresholds
 CONFIDENCE_HIGH = 0.65
 CONFIDENCE_MEDIUM = 0.55

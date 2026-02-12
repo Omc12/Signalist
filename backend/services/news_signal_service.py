@@ -12,26 +12,28 @@ def get_news_signal_features(ticker: str, date: str) -> dict:
     - event_present: Whether events were found
     - uncertainty_present: Whether risks were found
     """
+    import os
     import json
     import requests
     import logging
-    from core.config import GEMINI_API_KEY, NEWSDATA_API_KEY
+    from dotenv import load_dotenv
     
     try:
         import google.generativeai as genai
     except ImportError:
         return _get_neutral_features()
     
+    load_dotenv()
     logger = logging.getLogger(__name__)
     
     try:
         # Check API keys
-        newsdata_key = NEWSDATA_API_KEY.strip()
-        gemini_key = GEMINI_API_KEY.strip()
+        newsdata_key = os.getenv("NEWSDATA_API_KEY", "").strip()
+        gemini_key = os.getenv("GEMINI_API_KEY", "").strip()
         
-        if not newsdata_key or newsdata_key == "newsdata_api_key_here":
+        if not newsdata_key or newsdata_key == "your_newsdata_api_key_here":
             return _get_neutral_features()
-        if not gemini_key or gemini_key == "gemini_api_key_here":
+        if not gemini_key or gemini_key == "your_gemini_api_key_here":
             return _get_neutral_features()
         
         # Map ticker to company name for better news results
